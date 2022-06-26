@@ -1,0 +1,22 @@
+---
+- name: Install and configure icinga
+  hosts: icingatest
+  remote_user: manager
+  collections:
+    - icinga.icinga
+  roles:
+    - repos
+    - icinga2
+  become: yes
+  vars:
+    icinga2_features:
+      - name: checker
+      - name: mainlog
+      - name: graphite
+        host: localhost
+        port: 5000
+
+  tasks:
+    - name: debug
+      debug:
+        msg: "{{ ansible_fqdn }}"

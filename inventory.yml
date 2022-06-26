@@ -1,0 +1,19 @@
+all:
+  children:
+    icingatest:
+      hosts:
+        icinga1.internal.cloudapp.net:
+          ansible_host: <ip>
+          icinga2_objects:
+            icinga1.internal.cloudapp.net:
+              - name: ftp localhost
+                type: Service
+                order: 11
+                file: conf.d/services.conf
+                apply: true
+                imports:
+                  - generic-service
+                check_command: ftp
+                assign:
+                  - host.address
+
